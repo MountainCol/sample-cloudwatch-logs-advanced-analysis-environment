@@ -68,8 +68,13 @@ saved queries.
 
 ## Follow-along steps
 
-See [DEPLOY.md](./DEPLOY.md) for the full step-by-step sequence, including uploading the
-lookup table and toggling anomaly mode for the investigation screenshots.
+Two steps are not handled by the CDK and are done manually during the walkthrough:
+
+1. Upload `assets/account-metadata.csv` as a lookup table named `account_metadata`
+   (CloudWatch console: Logs → Settings → Lookup tables → Create).
+2. Optionally toggle anomaly mode on the generator Lambdas to produce the suspicious
+   patterns used in the investigation screenshots, and create the scheduled queries
+   with `aws logs create-scheduled-query`.
 
 ## Clean up
 
