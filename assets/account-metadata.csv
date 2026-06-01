@@ -1,0 +1,6 @@
+account_id,account_name,environment,owner,compliance_tier
+111122223333,Production-Core,production,platform-team,tier-1
+444455556666,Staging-Core,staging,platform-team,tier-2
+777788889999,Development,development,dev-team,tier-3
+123456789012,Data-Analytics,production,data-team,tier-1
+998877665544,Sandbox,sandbox,innovation-team,tier-3

@@ -1,0 +1,22 @@
+{
+  "name": "cdk-demo-security-logs-insights",
+  "version": "1.0.0",
+  "bin": {
+    "cdk-demo-security-logs-insights": "bin/app.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.170.0",
+    "constructs": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "aws-cdk": "^2.170.0",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.6.0"
+  }
+}

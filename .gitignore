@@ -1,0 +1,24 @@
+# CDK asset staging directory and synth output
+.cdk.staging
+cdk.out/
+cdk-out*/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Compiled TypeScript output (this project compiles in place)
+bin/*.js
+bin/*.d.ts
+lib/*.js
+lib/*.d.ts
+
+# IDE / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Local env / credentials
+.env
+*.pem
