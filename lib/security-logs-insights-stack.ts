@@ -11,6 +11,14 @@ export class SecurityLogsInsightsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    // Template metadata (rendered into the synthesized CloudFormation template).
+    this.templateOptions.templateFormatVersion = '2010-09-09';
+    this.templateOptions.description =
+      'Advanced log analysis in Amazon CloudWatch Logs Insights - demo environment. ' +
+      'WARNING: This template creates AWS Lambda functions, Amazon CloudWatch log groups, ' +
+      'an Amazon S3 bucket, Amazon EventBridge schedules, and AWS IAM roles. You will be ' +
+      'billed for the AWS resources used if you create a stack from this template.';
+
     // ─────────────────────────────────────────────────────────────────────────
     // S3 Bucket for scheduled query results
     // ─────────────────────────────────────────────────────────────────────────
@@ -41,8 +49,8 @@ export class SecurityLogsInsightsStack extends cdk.Stack {
     scheduledQueryRole.addToPolicy(new iam.PolicyStatement({
       actions: ['logs:StartQuery', 'logs:GetQueryResults'],
       resources: [
-        `arn:aws:logs:${this.region}:${this.account}:log-group:/demo/security/api-activity:*`,
-        `arn:aws:logs:${this.region}:${this.account}:log-group:/demo/security/access-logs:*`,
+        `arn:${cdk.Aws.PARTITION}:logs:${this.region}:${this.account}:log-group:/demo/security/api-activity:*`,
+        `arn:${cdk.Aws.PARTITION}:logs:${this.region}:${this.account}:log-group:/demo/security/access-logs:*`,
       ],
     }));
 
@@ -70,6 +78,12 @@ export class SecurityLogsInsightsStack extends cdk.Stack {
       handler: 'index.handler',
       code: lambda.Code.fromAsset('lambda/cloudtrail-generator'),
       timeout: cdk.Duration.seconds(30),
+      // Explicit execution log group with a retention period so logs do not
+      // persist indefinitely and are removed when the stack is deleted.
+      logGroup: new logs.LogGroup(this, 'CloudTrailGeneratorLogGroup', {
+        retention: logs.RetentionDays.ONE_WEEK,
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      }),
       environment: {
         LOG_GROUP_NAME: '/demo/security/api-activity',
         ANOMALY_MODE: 'false',
@@ -87,6 +101,10 @@ export class SecurityLogsInsightsStack extends cdk.Stack {
       handler: 'index.handler',
       code: lambda.Code.fromAsset('lambda/access-log-generator'),
       timeout: cdk.Duration.seconds(30),
+      logGroup: new logs.LogGroup(this, 'AccessLogGeneratorLogGroup', {
+        retention: logs.RetentionDays.ONE_WEEK,
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      }),
       environment: {
         LOG_GROUP_NAME: '/demo/security/access-logs',
         ANOMALY_MODE: 'false',
@@ -104,6 +122,10 @@ export class SecurityLogsInsightsStack extends cdk.Stack {
       handler: 'index.handler',
       code: lambda.Code.fromAsset('lambda/anomaly-generator'),
       timeout: cdk.Duration.seconds(30),
+      logGroup: new logs.LogGroup(this, 'AnomalyGeneratorLogGroup', {
+        retention: logs.RetentionDays.ONE_WEEK,
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      }),
       environment: {
         API_LOG_GROUP: '/demo/security/api-activity',
         ACCESS_LOG_GROUP: '/demo/security/access-logs',
@@ -189,7 +211,7 @@ export class SecurityLogsInsightsStack extends cdk.Stack {
       policy: cr.AwsCustomResourcePolicy.fromStatements([
         new iam.PolicyStatement({
           actions: ['logs:PutIndexPolicy', 'logs:DeleteIndexPolicy'],
-          resources: [`arn:aws:logs:${this.region}:${this.account}:log-group:/demo/security/api-activity`],
+          resources: [`arn:${cdk.Aws.PARTITION}:logs:${this.region}:${this.account}:log-group:/demo/security/api-activity`],
         }),
       ]),
     });
@@ -223,7 +245,7 @@ export class SecurityLogsInsightsStack extends cdk.Stack {
       policy: cr.AwsCustomResourcePolicy.fromStatements([
         new iam.PolicyStatement({
           actions: ['logs:PutIndexPolicy', 'logs:DeleteIndexPolicy'],
-          resources: [`arn:aws:logs:${this.region}:${this.account}:log-group:/demo/security/access-logs`],
+          resources: [`arn:${cdk.Aws.PARTITION}:logs:${this.region}:${this.account}:log-group:/demo/security/access-logs`],
         }),
       ]),
     });
