@@ -1,4 +1,3 @@
-<img width="3900" height="1920" alt="figure-01-architecture-cloudops-2335" src="https://github.com/user-attachments/assets/442c2bb6-df4e-4c6e-bfa7-96ffc97565db" />
 # Advanced log analysis with facets, correlation, enrichment, and automation in Amazon CloudWatch Logs Insights
 
 ## Introduction
