@@ -1,3 +1,4 @@
+<img width="3900" height="1920" alt="figure-01-architecture-cloudops-2335" src="https://github.com/user-attachments/assets/442c2bb6-df4e-4c6e-bfa7-96ffc97565db" />
 # Advanced log analysis with facets, correlation, enrichment, and automation in Amazon CloudWatch Logs Insights
 
 ## Introduction
@@ -69,8 +70,7 @@ Figure 1 shows the example environment we use throughout this post. In our examp
 - The second (`/demo/security/access-logs`) contains application access logs with fields like `userId`, `resource`, `action`, and `sourceIP`.
 - A lookup table (which you will create in the Lookup tables section) maps account IDs to organizational metadata.
 
-<!-- TODO: add Figure 1 image -->
-![Figure 1: Example environment showing log sources, key fields, and lookup table](images/figure-01-architecture.png)
+<img width="3900" height="1920" alt="figure-01-architecture-cloudops-2335" src="https://github.com/user-attachments/assets/2bc482cd-b546-4c2f-82d4-169ffb41cab4" />
 
 *Figure 1: Example environment showing log sources, key fields, and lookup table*
 
@@ -100,8 +100,7 @@ To explore your logs with facets, follow these steps:
 
 Figure 2 shows the `errorCode` facet filtered to `AccessDenied`, with the results displaying the correlated `sourceIPAddress` values.
 
-<!-- TODO: add Figure 2 image -->
-![Figure 2: Facets showing errorCode distribution with AccessDenied selected as a filter](images/figure-02-facets-errorcode-distribution.png)
+<img width="2906" height="1348" alt="figure-02-facets-errorcode-distribution-cloudops-2335" src="https://github.com/user-attachments/assets/b7c6cb2d-4632-409a-857a-4197b3e4f8b3" />
 
 *Figure 2: Facets showing `errorCode` distribution with `AccessDenied` selected as a filter*
 
@@ -116,8 +115,7 @@ Every log group includes four default facets.
 
 These work out of the box. No configuration required. Figure 3 shows how the default facets appear in the Logs Insights console before any custom index policies are applied.
 
-<!-- TODO: add Figure 3 image -->
-![Figure 3: Default facets panel showing @aws.region, @data_source_name, @data_source_type, and @data_format](images/figure-03-default-facets.png)
+<img width="1509" height="740" alt="figure-03-default-facets-cloudops-2335" src="https://github.com/user-attachments/assets/1c7af0b1-28c0-4d06-b5f1-beabceb1100f" />
 
 *Figure 3: Default facets panel showing `@aws.region`, `@data_source_name`, `@data_source_type`, and `@data_format`*
 
@@ -195,8 +193,7 @@ fields @timestamp, userIdentity_principalId, userIdentity_accountId, eventName
 
 If `account_name`, environment, and owner populate in the results, the table is working. Figure 4 shows the query output with the enriched organizational columns alongside the original log fields.
 
-<!-- TODO: add Figure 4 image -->
-![Figure 4: Lookup query results showing account_name and owner columns enriched from the CSV](images/figure-04-lookup-query-results.png)
+<img width="1509" height="699" alt="figure-04-lookup-query-results-cloudops-2335" src="https://github.com/user-attachments/assets/dcf9ee3a-e886-4b0b-9c5b-56b4b96a8228" />
 
 *Figure 4: Lookup query results showing `account_name` and owner columns enriched from the CSV*
 
@@ -237,8 +234,7 @@ aws logs put-query-definition \
 
 To see the saved query, open Saved and sample queries in the Logs Insights console, navigate to the Security folder, and choose `PrincipalActivityAudit`. The query loads with the `principalId` parameter input field pre-filled with the default value `AIDA1234567890EXAMPLE`. Figure 5 shows this view.
 
-<!-- TODO: add Figure 5 image -->
-![Figure 5: Saved parameterized query showing the principalId input field in the Logs Insights console](images/figure-05-parameterized-query-input.png)
+<img width="1510" height="701" alt="figure-05-parameterized-query-input-cloudops-2335" src="https://github.com/user-attachments/assets/0f6305c8-ef17-4a30-9903-791295455b70" />
 
 *Figure 5: Saved parameterized query showing the `principalId` input field in the Logs Insights console*
 
@@ -305,8 +301,7 @@ aws logs put-query-definition \
 
 Figure 6 shows the JOIN results in the console. Each row displays the API call alongside the corresponding application access event from the same IP.
 
-<!-- TODO: add Figure 6 image -->
-![Figure 6: JOIN results showing API calls and resource access correlated by source IP](images/figure-06-join-correlation.png)
+<img width="1511" height="699" alt="figure-06-join-correlation-cloudops-2335" src="https://github.com/user-attachments/assets/d4e12464-15fe-4320-ab06-670004de5608" />
 
 *Figure 6: JOIN results showing API calls and resource access correlated by source IP*
 
@@ -351,8 +346,7 @@ aws logs put-query-definition \
 
 Figure 7 shows the sub-query results. The inner query identified principals with repeated denied actions, and the outer query shows their successful API calls.
 
-<!-- TODO: add Figure 7 image -->
-![Figure 7: Sub-query results showing successful actions by principals who had repeated access denied errors](images/figure-07-subquery-results.png)
+<img width="1511" height="698" alt="figure-07-subquery-results-cloudops-2335" src="https://github.com/user-attachments/assets/1a94cc5c-ac7b-4c61-a392-af9309417fc2" />
 
 *Figure 7: Sub-query results showing successful actions by principals who had repeated access denied errors*
 
@@ -391,8 +385,7 @@ aws logs create-scheduled-query \
 
 To verify, open the CloudWatch console, navigate to Logs, then Logs Insights. Choose the down arrow on the Schedule query button and select View scheduled queries. In the Scheduled queries section, select `ProactiveAccessDeniedDetection` to view the schedule details, as shown in Figure 8.
 
-<!-- TODO: add Figure 8 image -->
-![Figure 8: Scheduled query configuration in the CloudWatch console](images/figure-08-scheduled-query-config.png)
+<img width="1499" height="596" alt="figure-08-scheduled-query-config-cloudops-2335" src="https://github.com/user-attachments/assets/1759e143-4995-417a-abc8-0f1a95bce214" />
 
 *Figure 8: Scheduled query configuration in the CloudWatch console*
 
@@ -420,8 +413,7 @@ This runs every Monday at 08:00 UTC and scans the previous 7 days (604,800 secon
 
 Figure 9 shows how the features are composed. This is not a prescribed methodology. It is a demonstration of how facets, parameterized queries, lookup, JOIN and sub-queries, and scheduled queries work together in a single workflow.
 
-<!-- TODO: add Figure 9 image -->
-![Figure 9: Example workflow showing features used in combination](images/figure-09-investigation-flow.png)
+<img width="1640" height="760" alt="figure-09-investigation-flow-cloudops-2335" src="https://github.com/user-attachments/assets/53e68e7b-6cbc-4b5b-adb6-945675eff363" />
 
 *Figure 9: Example workflow showing features used in combination*
 
